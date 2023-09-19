@@ -2,6 +2,7 @@ import {
   Pinecone,
   Vector,
   utils as PineconeUtils,
+  PineconeRecord,
 } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
@@ -15,14 +16,12 @@ import { convertToAscii } from "./utils";
 
 let pinecone: Pinecone | null = null;
 
-export const getPinecone = () => {
+export const getPineconeClient = () => {
   if (!pinecone) {
-    // Create a new Pinecone client instance with configuration
-    const pineconeConfig = {
+    pinecone = new Pinecone({
       environment: process.env.PINECONE_ENVIRONMENT!,
       apiKey: process.env.PINECONE_API_KEY!,
-    };
-    pinecone = new Pinecone(pineconeConfig);
+    });
   }
   return pinecone;
 };
@@ -41,6 +40,7 @@ export async function loadS3IntoPinecone(fileKey: string) {
   if (!file_name) {
     throw new Error("could not download from s3");
   }
+  console.log("loading pdf into memory" + file_name);
   const loader = new PDFLoader(file_name);
   const pages = (await loader.load()) as PDFPage[];
 
@@ -51,12 +51,12 @@ export async function loadS3IntoPinecone(fileKey: string) {
   const vectors = await Promise.all(documents.flat().map(embedDocument));
 
   // 4. upload to pinecone
-  const client = await getPinecone();
-  const pineconeIndex = client.Index("chatpdf");
+  const client = await getPineconeClient();
+  const pineconeIndex = await client.index("pdf-insight");
+  const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
 
   console.log("inserting vectors into pinecone");
-  const namespace = convertToAscii(fileKey);
-  PineconeUtils.chunkedUpsert(pineconeIndex, vectors, namespace, 10);
+  await namespace.upsert(vectors);
 
   return documents[0];
 }
@@ -73,7 +73,7 @@ async function embedDocument(doc: Document) {
         text: doc.metadata.text,
         pageNumber: doc.metadata.pageNumber,
       },
-    } as Vector;
+    } as PineconeRecord;
   } catch (error) {
     console.log("error embedding document", error);
     throw error;
