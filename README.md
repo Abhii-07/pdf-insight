@@ -1,6 +1,3 @@
-Certainly! Here's an enhanced `README.md` for your project with emojis and placeholders for project images/screenshots. You can replace the placeholders with actual images or screenshots of your project.
-
-```markdown
 # PDFInsights 📚💬
 
 PDFInsights is an AI-powered chat application that allows users to interact with PDF documents. This application enables users to ask questions and get insights from PDF documents using natural language, making it a valuable tool for students, researchers, and professionals.
