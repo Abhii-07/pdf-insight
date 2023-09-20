@@ -118,8 +118,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Pinecone AI](https://www.pinecone.io/) - For AI-powered document interaction.
 - [React](https://reactjs.org/) - For building the frontend user interface.
 - [Tailwind CSS](https://tailwindcss.com/) - For styling the application.
-
-Feel free to modify and extend this `README.md` to provide more details about your project or replace the placeholder images with actual project screenshots.
-```
-
-Remember to replace `/images/screenshot1.png` and `/images/screenshot2.png` with the actual file paths or URLs of your project screenshots or images.
