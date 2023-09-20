@@ -100,9 +100,9 @@ The application should now be running on `http://localhost:3000`.
 
 ## Screenshots 📷
 
-![Screenshot (283)](https://github.com/Abhii-07/pdf-insight/assets/97459166/83da269d-8d9e-4726-904f-d332c0116ae4)
+![Screenshot (285)](https://github.com/Abhii-07/pdf-insight/assets/97459166/98eeaae6-1cb5-4402-863b-4b2ee84736b9)
 
-![Screenshot (282)](https://github.com/Abhii-07/pdf-insight/assets/97459166/733d0b3b-cdf4-469c-828f-f0687790dc4a)
+![Screenshot (284)](https://github.com/Abhii-07/pdf-insight/assets/97459166/31355e81-1c1a-46f6-afc0-54a12528e1e0)
 
 
 ## License 📄
