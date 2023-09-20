@@ -3,24 +3,23 @@ import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
 import { ArrowRight, LogIn } from "lucide-react";
 import FileUpload from "@/components/FileUpload";
-// import FileUpload from "@/components/FileUpload";
-// import { checkSubscription } from "@/lib/subscription";
-// import SubscriptionButton from "@/components/SubscriptionButton";
-// import { db } from "@/lib/db";
-// import { chats } from "@/lib/db/schema";
-// import { eq } from "drizzle-orm";
+import { checkSubscription } from "@/lib/subscription";
+import SubscriptionButton from "@/components/SubscriptionButton";
+import { db } from "@/lib/db";
+import { chats } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId;
-  // const isPro = await checkSubscription();
-  // let firstChat;
-  // if (userId) {
-  //   firstChat = await db.select().from(chats).where(eq(chats.userId, userId));
-  //   if (firstChat) {
-  //     firstChat = firstChat[0];
-  //   }
-  // }
+  const isPro = await checkSubscription();
+  let firstChat;
+  if (userId) {
+    firstChat = await db.select().from(chats).where(eq(chats.userId, userId));
+    if (firstChat) {
+      firstChat = firstChat[0];
+    }
+  }
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -30,16 +29,16 @@ export default async function Home() {
             <UserButton afterSignOutUrl="/" />
           </div>
 
-           <div className="flex mt-2">
-            {/* {isAuth && firstChat && (
+          <div className="flex mt-2">
+            {isAuth && firstChat && (
               <Link href={`/chat/${firstChat.id}`}>
                 <Button>
                   Go to Chats <ArrowRight className="ml-2" />
                 </Button>
               </Link>
-            )} */}
+            )}
             <div className="ml-3">
-              {/* <SubscriptionButton isPro={isPro} /> */}
+              <SubscriptionButton isPro={isPro} />
             </div>
           </div>
 
@@ -50,7 +49,7 @@ export default async function Home() {
 
           <div className="w-full mt-4">
             {isAuth ? (
-              <FileUpload/>
+              <FileUpload />
             ) : (
               <Link href="/sign-in">
                 <Button>
@@ -59,7 +58,37 @@ export default async function Home() {
                 </Button>
               </Link>
             )}
-          </div> 
+          </div>
+
+          <div className="mt-6 flex justify-between">
+            {/* First Gif */}
+            <div className="w-[30%]">
+              <img
+                src="https://media.giphy.com/media/7jtU9sxHNLZuv8HZCa/giphy.gif"
+                alt="Sample Image or Gif"
+                className="w-full rounded-lg shadow-lg"
+              />
+            </div>
+
+            {/* Second Gif */}
+            <div className="w-[30%]">
+              <img
+                src="https://media.giphy.com/media/S60CrN9iMxFlyp7uM8/giphy.gif"
+                alt="Sample Image or Gif"
+                className="w-full rounded-lg shadow-lg"
+              />
+            </div>
+
+            {/* Third Gif */}
+            <div className="w-[30%]">
+              <img
+                src="https://media.giphy.com/media/ITRemFlr5tS39AzQUL/giphy-downsized-large.gif"
+                alt="Sample Image or Gif"
+                className="w-full rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

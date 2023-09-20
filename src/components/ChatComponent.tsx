@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
@@ -29,7 +29,8 @@ const ChatComponent = ({ chatId }: Props) => {
     },
     initialMessages: data || [],
   });
-  React.useEffect(() => {
+
+  useEffect(() => {
     const messageContainer = document.getElementById("message-container");
     if (messageContainer) {
       messageContainer.scrollTo({
@@ -38,32 +39,33 @@ const ChatComponent = ({ chatId }: Props) => {
       });
     }
   }, [messages]);
+
   return (
-    <div
-      className="relative max-h-screen overflow-scroll"
-      id="message-container"
-    >
-      {/* header */}
-      <div className="sticky top-0 inset-x-0 p-2 bg-white h-fit">
+    <div className="h-screen flex flex-col bg-gray-100">
+      <div className="bg-white py-2 px-4 top-0 z-10">
         <h3 className="text-xl font-bold">Chat here</h3>
       </div>
 
-      {/* message list */}
-      <MessageList messages={messages} isLoading={isLoading} />
+      <div
+        className="flex-grow max-h-screen overflow-y-scroll py-4 px-2"
+        id="message-container"
+      >
+        <MessageList messages={messages} isLoading={isLoading} />
+      </div>
 
       <form
         onSubmit={handleSubmit}
-        className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white"
+        className="bg-white py-4 px-2 sticky bottom-0 z-10"
       >
-        <div className="flex">
+        <div className="flex items-center">
           <Input
             value={input}
             onChange={handleInputChange}
             placeholder="Ask any question..."
-            className="w-full"
+            className="flex-grow mr-2"
           />
-          <Button className="bg-blue-600 ml-2">
-            <Send className="h-4 w-4" />
+          <Button className="bg-blue-600">
+            <Send className="h-4 w-4 text-white" />
           </Button>
         </div>
       </form>
