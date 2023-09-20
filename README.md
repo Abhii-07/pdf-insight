@@ -105,10 +105,6 @@ The application should now be running on `http://localhost:3000`.
 ![Screenshot (284)](https://github.com/Abhii-07/pdf-insight/assets/97459166/31355e81-1c1a-46f6-afc0-54a12528e1e0)
 
 
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments 🙏
 
 - [Clerk](https://clerk.dev/) - For user authentication and management.
